@@ -1,0 +1,208 @@
+\include{preamble}
+
+\usepackage{FiraSans}
+
+\title{ You keep using Coefficient of Variation\\ \emph{I do not think it means what you think it means }  }
+%\subtitle{Inigo Montoya suggests variance partitioning, instead}
+
+\author{Devan Allen McGranahan \inst{1} \and Samuel D. Fuhlendorf \inst{2}}
+\institute{\inst{1} USDA Agricultural Research Service, Miles City, MT; 
+                      \inst{2} Oklahoma State University, Stillwater, OK}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The first column
+
+
+%	OBJECTIVES
+\vspace{-1cm}
+\begin{alertblock}{	Overview }
+	
+\begin{itemize}
+	\item Variability\textemdash statistically, \emph{variance}, the second data moment\textemdash can be a more important ecological property than the mean 
+\item Coefficient of Variation is popular but problematic under multiple sources of variability 
+\item \textbf{We demonstrate \emph{variance partitioning} as a spatially-explicit alternative to CV}
+\end{itemize} 
+\end{alertblock}
+
+\begin{block}{Defining variability}
+\begin{itemize}
+	\item[] \textbf{Coefficient of Variation}
+\item Variability can be abstract\textemdash simple measures are understandable 
+\item Coefficient of Variation is calculated as \\
+%\begin{equation*}
+	$CV = \frac{\sigma}{\mu} \cdot 100 $ 
+%\end{equation*}
+\item[] where $\sigma$ = standard deviation and $\mu$ = mean
+\item[] \textbf{Handling multiple sources of variability} 
+\item \emph{CV is only reliable when mean is constant}
+\item When variability effects differences in both $\mu$ and $\sigma$, CV is misleading
+\item Both \emph{inherent} and \emph{disturbance-driven heterogeneity} can case variability in $\mu$ and $\sigma$:
+\end{itemize}
+
+\begin{figure}
+\includegraphics[width=8.5in]{figure/HeterogeneitySources}
+\caption{~Examples of heterogeneity sources.}
+\label{HetSources}
+\end{figure}
+
+\end{block}
+\end{column} 
+% End of the first column
+
+%------------------------------------------------
+
+\begin{column}{\sepwid}\end{column} % Left spacer column
+
+\begin{column}{\twocolwid} % Begin a column two columns wide (column 2)
+
+\begin{columns}[T] % align columns
+	
+\begin{column}{0.4\textwidth} % Begin left half of central column
+
+	\vspace{-2.5cm}	
+	\begin{alertblock}{Data and methods}
+		\small{
+		\raggedright
+		\emph{Productivity Scenarios} defined by quantiles of the range of productivity across US National Grasslands as determined by Rangeland Analysis Platform data on perennial + annual herbaceous biomass
+		\begin{center}
+			\begin{figure}
+	
+			\includegraphics[]{figure/NonSpatialData}
+			\caption{~Productivity classes (kg ha\textsuperscript{-1}).}
+			\label{productivity}
+		\end{figure}
+		\begin{tabular}{l ccc}
+			\toprule
+			\textbf{Productivity scenario} & \textbf{Mean} & \textbf{SD} & \textbf{CV}  \\ \midrule
+			Very Low (VL)	&	553 & 78.8 & 	0.14 \\
+			Low (L) &	739 &	42.3 &	0.06 \\
+			Medium (M) &	869 & 33.6 &	0.04 \\
+			High (H) &	993 &	39.4 &	0.04\\
+			Very High (VH) & 1194 & 81.7 & 0.07 \\ \bottomrule
+		\end{tabular}
+	\end{center}
+	\textbf{Non-spatial simulations}
+	
+	Calculate CV for each productivity scenario:
+	\begin{itemize}
+		\item Actual mean ($\mu$) and standard deviation ($\sigma$) from data in Fig.~\ref{productivity}. 
+		\item Constant $\mu$ across productivity classes (VH \& VL) with $\sigma$ from each class
+		\item Constant $\sigma$ across productivity classes (VH \& VL) with $\mu$ from each class
+	\end{itemize}
+\textbf{Spatial simulations}
+
+Four landscape scenarios (Fig.~\ref{SpatialData}):
+\begin{itemize}
+	\item Randomly-distributed productivity
+	\item Disturbance only: Time-since-fire gradient
+	\item Inherent variability only: soil types
+	\item Both disturbance gradient and soil types
+\end{itemize}
+		\begin{center}
+	\begin{figure}
+		\includegraphics[]{figure/SpatialData}
+		\caption{~Four simulated landscapes.}
+		\label{SpatialData}
+	\end{figure}
+\end{center}		}
+		
+	\end{alertblock} 
+
+
+\end{column}% End left half of central column
+\hfill%
+\begin{column}{0.6\textwidth} % Begin right half of central column
+	\vspace{-2cm}
+		\begin{block}{Problems with CV} \end{block}
+\vspace{-1cm}
+\textbf{Non-spatial example}
+\begin{itemize}
+	\item When means vary, \emph{CV declines as mean increases}
+	\item Low mean, high CV relationship \emph{independent of SD}
+\end{itemize} 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=1.5\maxwidth]{figure/NonSpatialResults}
+		\caption{~CV calculations from non-spatial example. 
+			\emph{Center:} CV with actual mean and SD for each productivity scenario (Fig.~\ref{productivity}). 
+			\emph{L \& R:} CV with unique SD for each scenario and constant mean, highest and lowest classes. 
+			\emph{Top \& Bottom:} CV with unique mean for each scenario and constant SD, highest and lowest classes.}
+		\label{NonSpatialExample}
+	\end{center}
+\end{figure}
+
+\textbf{Spatial example} 
+
+\begin{itemize}
+	\item CV is not sensitive to landscape-level heterogeneity
+	\item Similar trends as in Fig.~\ref{SpatialData} when homoscedastic
+\end{itemize} 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=1.5\maxwidth]{figure/SpatialResults}
+		\caption{~\emph{Columns:} CV across heterogeneous and homogeneous landscapes (Fig.~\ref{SpatialData}). \emph{Rows:} Assuming the variance in productivity data remain constant as means increase (homoscedastic, and assumption of linear regression ) vs increasing variance with mean (heteroscedastic, a reality of many ecological data.)}
+		\label{SpatialExample}
+	\end{center}
+\end{figure}
+
+\end{column}%
+\end{columns}  % End of the split of column 2
+
+\end{column} % End of the central, split column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The third column
+	\vspace{-1cm}
+\begin{block}{Solution: Variance Partitioning} \end{block}
+	\vspace{-2cm}
+\begin{itemize}
+	\item Random-effect regression parses variance into spatially-relevant scales
+	\item Spatial heterogeneity \emph{quantified as patch contrast}\textemdash the degree of difference among landscape units
+	\item Coarse distinction between heterogeneous (patchy) and homogeneous (uniform) landscapes
+	\item Fine distinction among degrees of variability among patches
+\end{itemize} 
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=1.5\maxwidth]{figure/VariancePartitioning}
+		\caption{~The proportion variance attributable to the patch term in a random-effect regression\textemdash\emph{Patch Contrast}\textemdash within heterogeneous and homogeneous landscapes from Fig.~\ref{SpatialData}. }
+		\label{VariancePartitioning}
+	\end{center}
+\end{figure}
+	
+\begin{alertblock}{\textbf{Avoid CV when means vary!}}
+
+\begin{itemize}
+\item CV is only useful to compare variability when mean values are constant. 
+\item CV is not sensitive to spatial heterogeneity.
+\item {Variance partitioning} is robust for data with spatial structure\textemdash always a good idea when sampling heterogeneous environments. 
+\item Variance partitioning can be accomplished with \texttt{proc GLIMMIX} in SAS, \texttt{lme4::(g)lmer} in \textbf{R}. The \textbf{R} package \texttt{rptR} also performs variance decomposition.
+\end{itemize}
+
+\end{alertblock}
+
+\end{column} % End of the third column
+
+\end{columns} % End of all the columns in the poster
+
+\end{frame} % End of the enclosing frame
+
+\end{document}
